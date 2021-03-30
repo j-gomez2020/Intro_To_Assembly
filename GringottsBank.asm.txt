@@ -1,0 +1,100 @@
+#Jasmin Gomez
+#Lab 3 - Hogwarts Banking Lab
+#CSC 35 - Devin Cook
+#Lab Mondays @10am
+
+.intel_syntax noprefix
+.data
+
+Intro:
+      	.ascii "Welcome to Gringotts Wizarding Bank! \n\0"
+        .ascii " We will have your financial assesment ready in just a moment.\n\0"
+
+income:
+       	.ascii "Please enter total income earned this month: \n\0"
+
+Potions:
+
+        .ascii "Enter the amount of Galleons spent on Potions:\n\0"
+
+Rent:
+     	.ascii "Enter the amount of Galleons spent on Rent: \n\0"
+
+FandMed:
+
+        .ascii "Enter the amounf of Galleons spent on Food and Medicine: \n\0"
+
+Net:
+
+    	.ascii "Your net balance is: $ \0"
+
+Good:
+
+     	.ascii " Your balance is positive, please make your way to the nearest teller to make a deposit. \n\0"
+
+Broke:
+
+      	.ascii " Your balance is negative, please make an appointment with an advisor. \n\0"
+
+Bye:
+    	.ascii "\n\0"
+        .ascii " Thank you for coming to Gringotts Wizarding Bank \0"
+
+.text
+.global _start
+
+_start:
+       	# prints the welcome message
+        lea rbx, Intro
+        call PrintCString
+
+        # asks the use for the amount of income they generate
+        lea rbx, income
+        call PrintCString
+        call ScanInt
+        mov rax, rbx
+
+        #asks for the amount of galleons spent on potions
+        lea rbx, Potions
+        call PrintCString
+        call ScanInt
+        sub rax, rbx
+
+        #asks for the amoutn spent on rent
+#asks for the amoutn spent on rent
+        lea rbx, Rent
+        call PrintCString
+        call ScanInt
+        sub rax, rbx
+
+        #asks for the amount spent on food and medicine
+        lea rbx, FandMed
+        call PrintCString
+        call ScanInt
+        sub rax, rbx
+
+        #displays the net amount
+        lea rbx, Net
+        call PrintCString
+        mov rbx, rax
+        call PrintInt
+        cmp rax, 0
+        jge then
+
+then:
+
+     	lea rbx, Good
+        call PrintCString
+        lea rbx, Bye
+        call PrintCString
+        jmp end
+
+else:
+
+     	lea rbx, Broke
+        call PrintCString
+        lea rbx, Bye
+
+end:
+
+    	call EndProgram
