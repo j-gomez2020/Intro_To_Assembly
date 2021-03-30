@@ -1,0 +1,40 @@
+lab1-gomez
+#Jasmin Gomez Heredia
+#CSC35 - Section 01
+#
+#1. Assemble : as-o lab1-gomez.o lab1-gomez.asm
+#2. Link : ld -o a.out lab1-gomez.o csc35.o
+#3. execute: a.out
+
+.intel_syntax noprefix
+.data
+Greeting:
+	.ascii "Salutations!\n\0"
+Name:
+     	.ascii "My name is Jasmin Gomez Heredia.\n\0"
+Quote:
+      	.ascii "Postive evolution is the result of one's innermost mind.\n\0"
+Fact1:
+      	.ascii "The Arpnet was created in\0 "
+Fact2:
+      	.ascii " which is the predicessor to the internet that we know and love today. \0"
+.text
+.global _start
+
+_start:
+       	lea rbx, Greeting
+        call PrintCString
+        lea rbx, Name
+        call PrintCString
+        lea rbx, Quote
+        call PrintCString
+        lea rbx, Fact1
+        call PrintCString
+        mov rbx, 1947
+        call PrintInt
+        lea rbx, Fact2
+        call PrintCString
+
+        call EndProgram
+
+
